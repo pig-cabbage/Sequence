@@ -18,10 +18,10 @@ int main() {
 	cout<<"The longest consecutive sequence is: "<<endl<<sequence.longestConsecutive()<<endl;
 	cout<<fixed<<setprecision(6);
 	start=clock();
-	cout<<"Time: "<<clock()-start<<endl;
+	cout<<"Time: "<<setprecision(5)<<(clock()-start)/1000<<"s"<<endl;
 	start=clock();
         cout<<"The longest repeated sequence is: "<<endl<<sequence.longestRepeated()<<endl;
-	cout<<"Time: "<<clock()-start<<endl;
+	cout<<"Time: "<<setprecision(5)<<(clock()-start)/1000<<"s"<<endl;
 	return 0;
 }
 
