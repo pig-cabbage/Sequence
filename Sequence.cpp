@@ -1,109 +1,79 @@
 #include"Sequence.h"
 #include<iostream>
 #include<string>
-#include<algorithm>
-#include<cstring>
-
-Sequence::Sequence(string filename){
-	freopen(filename,"r",stdin);
+#include<sstream>
+#include<string.h>
+#include<stdio.h>
+int pstrcmp(const void *p1, const void *p2) {
+	return strcmp(*(char* const *)p1, *(char *const*)p2);
+}
+Sequence::Sequence(const char * filename) {
+	freopen(filename, "r", stdin);
 	string line;
-	getline(cin,line);
-	all=line;
-	while(getline(cin,line)){
-	line.erase(0,0);
-	all+=line;
+	getline(cin, line);
+	all = line;
+	while (getline(cin, line)) {
+		line.erase(0, 0);
+		all += line;
 	}
 }
-int Sequence::length(){
+int Sequence::length() {
 	return all.size();
 }
-int Sequence::numberOf(char base){
-	long long number=count(all.begin(),all.end(),base);
-	return number;
+int Sequence::numberOf(char base) {
+	int number;
+	return number = count(all.begin(), all.end(), base);
 }
-string Sequence::longestConsecutive(){
-	string consecutive;
-	long a_number=0,c_number=0,g_number=0,t_number=0;
-	long a_pos=0;c_pos=0,g_pos=0,t_pos=0;
-	for(int i=0;i<all.size();++i){
-		if(all[i]=='A'){
-			long pos=i;
-			a_number?=1;
-			while(all[++i]=='A')
-				++a_number?;
-			if(a_number?>=a_number){
-				a_number=a_number?;
-				a_pos=pos;
-				}
-			--i;
-			}
-		 if(all[i]=='C'){
-                        c_number?=1;
-			long pos=i;
-                        while(all[++i]=='C')
-                                ++c_number?;
-			if(c_number?>=c_number){
-				c_number=c_number?;
-				c_pos=pos;
-				}	
-                        --i;
-                        }
-
-		 if(all[i]=='T'){
-                        t_number?=1;
-			long pos=i;
-                        while(all[++i]=='T')
-                                ++t_number?;
-			if(t_number?>=t_number){
-				t_number=t_number?;
-				t_pos=pos;
-				}
-                        --i;
-                        }
-		 if(all[i]=='G'){
-                        g_number?=1;
-			long pos=i;
-                        while(all[++i]=='G')
-                                ++g_number?;
-			if(g_number?>=g_number){
-				g_number=g_number?;
-				g_pos=pos;
-				}
-                        --i;
-                        }
-
-		
+string Sequence::longestConsecutive() {
+	char base;
+	int maxnumber=0;
+	int thisnumber = 1;
+	for (int i = 0; i < all.size(); ++i) {
+		if (all[i] == all[i + 1]) {
+			++thisnumber;
 		}
-	
-		if(a_number>=c_number&&a_number>=t_number&&a>=g_number)
-			return consecutive='A'*a_number;
-		if(c_number>=a_number&&c_number>=t_number&&c_number>=g_number)
-			return consecutive='C'*c_number;
-		if(t_number>=a_number&&t_number>=c_number&&t_number>=g_number)
-			return consecutive='T'*t_number;
-		if(g_number>=a_number&&g_number>=c_number&&g_number>=t_number)
-			return consecutive='G'*g_number;
+		else {
+			if (thisnumber > maxnumber) {
+				base = all[i];
+				maxnumber = thisnumber;
+				
+			}
+			thisnumber = 1;
+		}
+		
 	}
-string Sqquence::longestRepeated(){
-		string repeated;
-		int maxlen=0;
-		int finalpos;
-		for(int i=0;i<all.size();++i){
-			int pos=i;
-			for(int j=i+1;j<all.size();++j){
-				int thislen=0;
-				while(all[i]==all[j]&&i<j){
-					++thislen;
-					++i;
-					}
-				if(thislen>=maxlen){
-					maxlen=thislen;
-					finalpos=pos;
-					}
-				}
-			}
-
-	
+	char *consecutive = new char[maxnumber];
+	for (int i = 0; i < maxnumber; ++i) {
+		consecutive[i] = base;
+	}
+	return consecutive;
+}
+string Sequence::longestRepeated() {
+	const int number = all.size() - 1;
+	int maxlen=0,maxi=0;
+	char *c = new char[number];
+	char **a = new char *[number];
+	for (int i = 0; i <= number; ++i) {
 		
-		return repeated=all.substr(final,maxlen);
+		c[i] = all[i];
+		a[i] = &c[i];
+
+	}
+	qsort(a, number, sizeof(char*),pstrcmp);
+	for (int i = 0; i < number; ++i) {
+		int temp = comlen(a[i], a[i + 1]);
+
+		if (temp > maxlen) {
+			maxlen = temp;
+			maxi = i;
 		}
+	}
+	string repeated =a[maxi];
+	return repeated.substr(0,maxlen);
+}
+int Sequence::comlen(char *p, char *q) {
+	int i = 0;
+	while (*p && (*p++ == *q++))
+		++i;
+	return i;
+}
