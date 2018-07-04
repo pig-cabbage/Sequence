@@ -15,13 +15,16 @@ int main() {
 	cout<<"C: "<<sequence.numberOf('C')<<endl;
 	cout<<"T: "<<sequence.numberOf('T')<<endl;
 	cout<<"G: "<<sequence.numberOf('G')<<endl;
-	cout<<"The longest consecutive sequence is: "<<endl<<sequence.longestConsecutive()<<endl;
-	cout<<fixed<<setprecision(6);
 	start=clock();
-	cout<<"Time: "<<setprecision(5)<<(clock()-start)/1000<<"s"<<endl;
+	cout<<"The longest consecutive sequence is: "<<endl;
+	cout<<sequence.longestConsecutive()<<endl;
+	double zhi=1000000;
+	double time =(clock()-start)/zhi;
+	cout<<"Time: "<<fixed<<setprecision(5)<<time<<"s"<<endl;
 	start=clock();
         cout<<"The longest repeated sequence is: "<<endl<<sequence.longestRepeated()<<endl;
-	cout<<"Time: "<<setprecision(5)<<(clock()-start)/1000<<"s"<<endl;
+	time =(clock()-start)/zhi;
+	cout<<"Time: "<<time<<"s"<<endl;
 	return 0;
 }
 

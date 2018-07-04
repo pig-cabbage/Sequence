@@ -24,29 +24,50 @@ int Sequence::numberOf(char base) {
 	int number;
 	return number = count(all.begin(), all.end(), base);
 }
-string Sequence::longestConsecutive() {
+string Sequence::longestConsecutive(){
 	char base;
+
 	int maxnumber=0;
+
 	int thisnumber = 1;
+
 	for (int i = 0; i < all.size(); ++i) {
+
 		if (all[i] == all[i + 1]) {
+
 			++thisnumber;
+
 		}
+
 		else {
+
 			if (thisnumber > maxnumber) {
+
 				base = all[i];
+
 				maxnumber = thisnumber;
+
 				
+
 			}
+
 			thisnumber = 1;
+
 		}
+
 		
+
 	}
-	char *consecutive = new char[maxnumber];
+
+	string abc;
+
 	for (int i = 0; i < maxnumber; ++i) {
-		consecutive[i] = base;
+
+		cout<<base;
+
 	}
-	return consecutive;
+
+	return abc;
 }
 string Sequence::longestRepeated() {
 	const int number = all.size() - 1;
