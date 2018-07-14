@@ -59,11 +59,11 @@ string Sequence::longestConsecutive(){
 
 	}
 
-	string abc;
+	char *abc=new char[maxnumber];
 
 	for (int i = 0; i < maxnumber; ++i) {
 
-		cout<<base;
+		abc[i]=base;
 
 	}
 
